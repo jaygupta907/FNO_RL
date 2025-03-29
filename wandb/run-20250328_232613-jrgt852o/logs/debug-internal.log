@@ -1,0 +1,15 @@
+{"time":"2025-03-28T23:26:13.223872756-07:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/jay/FNO_RL/wandb/run-20250328_232613-jrgt852o/logs/debug-core.log"}
+{"time":"2025-03-28T23:26:13.327584184-07:00","level":"INFO","msg":"created new stream","id":"jrgt852o"}
+{"time":"2025-03-28T23:26:13.327611624-07:00","level":"INFO","msg":"stream: started","id":"jrgt852o"}
+{"time":"2025-03-28T23:26:13.327631894-07:00","level":"INFO","msg":"writer: Do: started","stream_id":"jrgt852o"}
+{"time":"2025-03-28T23:26:13.327635524-07:00","level":"INFO","msg":"sender: started","stream_id":"jrgt852o"}
+{"time":"2025-03-28T23:26:13.327645864-07:00","level":"INFO","msg":"handler: started","stream_id":"jrgt852o"}
+{"time":"2025-03-28T23:26:13.481057321-07:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-28T23:26:26.544083295-07:00","level":"INFO","msg":"stream: closing","id":"jrgt852o"}
+{"time":"2025-03-28T23:26:26.544110055-07:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-28T23:26:26.544474003-07:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-28T23:26:26.967329932-07:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-28T23:26:27.09602749-07:00","level":"INFO","msg":"handler: closed","stream_id":"jrgt852o"}
+{"time":"2025-03-28T23:26:27.09605501-07:00","level":"INFO","msg":"sender: closed","stream_id":"jrgt852o"}
+{"time":"2025-03-28T23:26:27.09605196-07:00","level":"INFO","msg":"writer: Close: closed","stream_id":"jrgt852o"}
+{"time":"2025-03-28T23:26:27.096116219-07:00","level":"INFO","msg":"stream: closed","id":"jrgt852o"}

@@ -1,0 +1,94 @@
+/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jaxfluids/input/input_manager.py:161: RuntimeWarning: Active levelset and mesh stretching requires the user to ensure that the interface is located on the highest resolution with cell size aspect ratio unity.
+  warnings.warn(warning_string, RuntimeWarning)
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jaxfluids/initialization/forcings_initializer.py:84: RuntimeWarning: Restart file /home/jay/jaxfluids_rl/src/jaxfluids_rl/envs/cylinder2D/restart_files/data_1050.0096224507.h5 does not contain forcings, however, there are active forcings. Using default values
+  warnings.warn(warning_string, RuntimeWarning)
+Traceback (most recent call last):
+  File "/home/jay/FNO_RL/test.py", line 119, in <module>
+    model.learn(total_timesteps=100000,callback=callback_list)
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/ppo/ppo.py", line 311, in learn
+    return super().learn(
+           ^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/common/on_policy_algorithm.py", line 323, in learn
+    continue_training = self.collect_rollouts(self.env, callback, self.rollout_buffer, n_rollout_steps=self.n_steps)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/common/on_policy_algorithm.py", line 218, in collect_rollouts
+    new_obs, rewards, dones, infos = env.step(clipped_actions)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/common/vec_env/base_vec_env.py", line 207, in step
+    return self.step_wait()
+           ^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/common/vec_env/dummy_vec_env.py", line 59, in step_wait
+    obs, self.buf_rews[env_idx], terminated, truncated, self.buf_infos[env_idx] = self.envs[env_idx].step(  # type: ignore[assignment]
+                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/common/monitor.py", line 94, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+                                                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/jaxfluids_rl/src/jaxfluids_rl/envs/cylinder2D/cylinder2D.py", line 185, in step
+    jxf_buffers, cb_buffers = self.advance_fn(
+                              ^^^^^^^^^^^^^^^^
+  File "/home/jay/jaxfluids_rl/src/jaxfluids_rl/helper_functions.py", line 58, in advance
+    jxf_buffers, callback_step_dict = self.do_integration_step(
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jaxfluids/simulation_manager.py", line 1125, in do_integration_step
+    return self._do_integration_step_jit(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/traceback_util.py", line 180, in reraise_with_filtered_traceback
+    return fun(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/pjit.py", line 341, in cache_miss
+    pgle_profiler) = _python_pjit_helper(fun, jit_info, *args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/pjit.py", line 195, in _python_pjit_helper
+    out_flat, compiled, profiler = _pjit_call_impl_python(*args_flat, **p.params)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/pjit.py", line 1648, in _pjit_call_impl_python
+    compiled = _resolve_and_lower(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/pjit.py", line 1615, in _resolve_and_lower
+    return _pjit_lower(
+           ^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/pjit.py", line 1753, in _pjit_lower
+    return pxla.lower_sharding_computation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/profiler.py", line 334, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/interpreters/pxla.py", line 2357, in lower_sharding_computation
+    nreps, tuple_args, shape_poly_state) = _cached_lowering_to_hlo(
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/interpreters/pxla.py", line 1958, in _cached_lowering_to_hlo
+    lowering_result = mlir.lower_jaxpr_to_module(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/interpreters/mlir.py", line 1218, in lower_jaxpr_to_module
+    lower_jaxpr_to_fun(
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/interpreters/mlir.py", line 1708, in lower_jaxpr_to_fun
+    out_vals, tokens_out = jaxpr_subcomp(
+                           ^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/interpreters/mlir.py", line 1971, in jaxpr_subcomp
+    avals_in = map(aval, eqn.invars)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/interpreters/mlir.py", line 1907, in aval
+    return core.abstractify(v.val)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/core.py", line 1538, in abstractify
+    return get_aval(x)
+           ^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/core.py", line 1544, in get_aval
+    return aval_fn(x)
+           ^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/abstract_arrays.py", line 58, in _make_shaped_array_for_numpy_array
+    return ShapedArray(x.shape, dtypes.canonicalize_dtype(dtype), sharding=None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/core.py", line 1844, in __init__
+    self.sharding = get_sharding(sharding, len(self.shape))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/core.py", line 1823, in get_sharding
+    return NamedSharding(mesh_lib.empty_abstract_mesh, P(*[None] * ndim))
+                                                       ^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jax/_src/partition_spec.py", line 51, in __new__
+    def __new__(cls, *partitions):
+
+KeyboardInterrupt

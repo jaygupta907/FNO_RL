@@ -1,0 +1,19 @@
+/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jaxfluids/input/input_manager.py:161: RuntimeWarning: Active levelset and mesh stretching requires the user to ensure that the interface is located on the highest resolution with cell size aspect ratio unity.
+  warnings.warn(warning_string, RuntimeWarning)
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+Traceback (most recent call last):
+  File "/home/jay/FNO_RL/test.py", line 118, in <module>
+    model = SAC(policy=CustomPolicy,env=env,verbose=1,batch_size=16,buffer_size=1000,learning_rate=0.001,device='cuda')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/sac/sac.py", line 157, in __init__
+    self._setup_model()
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/sac/sac.py", line 161, in _setup_model
+    self._create_aliases()
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/stable_baselines3/sac/sac.py", line 195, in _create_aliases
+    self.actor = self.policy.actor
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1928, in __getattr__
+    raise AttributeError(
+AttributeError: 'CustomPolicy' object has no attribute 'actor'
