@@ -1,7 +1,0 @@
-{"time":"2025-03-28T23:49:48.999672562-07:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/jay/FNO_RL/wandb/run-20250328_234948-xbmvbebx/logs/debug-core.log"}
-{"time":"2025-03-28T23:49:49.102858979-07:00","level":"INFO","msg":"created new stream","id":"xbmvbebx"}
-{"time":"2025-03-28T23:49:49.102877629-07:00","level":"INFO","msg":"stream: started","id":"xbmvbebx"}
-{"time":"2025-03-28T23:49:49.102893389-07:00","level":"INFO","msg":"writer: Do: started","stream_id":"xbmvbebx"}
-{"time":"2025-03-28T23:49:49.102900799-07:00","level":"INFO","msg":"sender: started","stream_id":"xbmvbebx"}
-{"time":"2025-03-28T23:49:49.102903469-07:00","level":"INFO","msg":"handler: started","stream_id":"xbmvbebx"}
-{"time":"2025-03-28T23:49:49.289051741-07:00","level":"INFO","msg":"Starting system monitor"}

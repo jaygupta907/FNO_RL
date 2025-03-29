@@ -16,22 +16,24 @@ import wandb
 
 
 class CustomActorCritic(nn.Module):
-    def __init__(self, 
-                 in_channels=2, 
-                 out_channels=1, 
-                 hidden_channels=32, 
-                 n_modes_height=10, 
-                 n_layers=3, 
-                 action_dim=1, 
-                 obs_dim=75):
+    def __init__(self,
+                in_channels=2,
+                out_channels=1,
+                hidden_channels=32,
+                n_modes_height=10,
+                n_layers=3,
+                action_dim=1,
+                obs_dim=75):
         super(CustomActorCritic, self).__init__()
 
+        # FNO Backbone
         self.fno = fno.FNO1d(in_channels=in_channels,
-                             out_channels=out_channels,
-                             hidden_channels=hidden_channels,
-                             n_modes_height=n_modes_height,
-                             n_layers=n_layers)
-        
+                            out_channels=out_channels,
+                            hidden_channels=hidden_channels,
+                            n_modes_height=n_modes_height,
+                            n_layers=n_layers)
+
+        # Value Function
         self.value = nn.Sequential(
             nn.Linear(obs_dim, 64),
             nn.ReLU(),
@@ -40,27 +42,35 @@ class CustomActorCritic(nn.Module):
             nn.Linear(64, 1)
         )
 
+        # Mean Action Output
         self.action_mean = nn.Sequential(
             nn.Linear(obs_dim, 64),
             nn.ReLU(),
             nn.Linear(64, 64),
             nn.ReLU(),
-            nn.Linear(64, action_dim)  # Output mean for normal distribution
+            nn.Linear(64, action_dim)
         )
 
-        self.action_log_std = nn.Parameter(torch.zeros(action_dim))  # Learnable std dev
+        # Learnable Standard Deviation
+        self.action_std_layer = nn.Sequential(
+            nn.Linear(obs_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Linear(64, action_dim)
+        )
 
     def forward(self, x):
         x = x.float()
         x = self.fno(x)
-        x = x.view(x.size(0), -1)  # Flatten
+        x = x.view(x.size(0), -1)
 
         value = self.value(x)
         action_mean = self.action_mean(x)
-        action_log_std = self.action_log_std.expand_as(action_mean)  # Expand to match mean
-        action_std = torch.exp(action_log_std)  # Ensure positivity
+        action_log_std = self.action_std_layer(x)  
+        action_std = torch.exp(action_log_std)  
 
-        return value, action_mean, action_std  # Now returning mean & std for a normal distribution
+        return value, action_mean, action_std
 
 
 class CustomPolicy(ActorCriticPolicy):
@@ -102,7 +112,7 @@ class RenderCallback(BaseCallback):
         return True  
     
 class LoggingCallback(BaseCallback):
-    def __init__(self, project_name="FNO_JAX_FLUIDS_Cylidner2D", run_name="PPO_Experiment_1"):
+    def __init__(self, project_name="FNO_JAX_FLUIDS_Cylinder2D", run_name="PPO_Experiment_1"):
         super().__init__()
         wandb.init(project=project_name, name=run_name, sync_tensorboard=True)
 
