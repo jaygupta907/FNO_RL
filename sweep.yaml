@@ -1,0 +1,16 @@
+name: Algorithm_Sweep
+project: "JAX_FLUIDS_Cylinder2D"
+entity: jay_gupta-indian-institute-of-technology-madras
+program: train.py
+method: random
+metric:
+  name: reward_mean
+  goal: maximize
+parameters:
+  algorithm:
+    values: ['sac','ppo','td3','ddpg']
+  learning_rate:
+    values: [0.001,0.0001,0.0005]
+  batch_size:
+    values: [32,64,128]
+  

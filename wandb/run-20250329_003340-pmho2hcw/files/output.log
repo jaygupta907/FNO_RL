@@ -1,7 +1,0 @@
-/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jaxfluids/input/input_manager.py:161: RuntimeWarning: Active levelset and mesh stretching requires the user to ensure that the interface is located on the highest resolution with cell size aspect ratio unity.
-  warnings.warn(warning_string, RuntimeWarning)
-Using cuda device
-Wrapping the env with a `Monitor` wrapper
-Wrapping the env in a DummyVecEnv.
-/home/jay/miniconda3/envs/venv_jaxfluids/lib/python3.11/site-packages/jaxfluids/initialization/forcings_initializer.py:84: RuntimeWarning: Restart file /home/jay/jaxfluids_rl/src/jaxfluids_rl/envs/cylinder2D/restart_files/data_1050.0096224507.h5 does not contain forcings, however, there are active forcings. Using default values
-  warnings.warn(warning_string, RuntimeWarning)

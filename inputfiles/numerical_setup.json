@@ -1,0 +1,78 @@
+{
+    "conservatives": {
+        "halo_cells": 5,
+        "time_integration": {
+            "integrator": "RK3",
+            "CFL": 0.6
+        },
+        "convective_fluxes": {
+            "convective_solver": "GODUNOV",
+            "godunov": {
+                "riemann_solver": "HLLC",
+                "signal_speed": "EINFELDT",
+                "reconstruction_stencil": "WENO5-Z-ADAP",
+                "reconstruction_variable": "PRIMITIVE"
+            }
+        },
+        "dissipative_fluxes": {
+            "reconstruction_stencil": "CENTRAL4-ADAP",
+            "derivative_stencil_center": "CENTRAL4-ADAP",
+            "derivative_stencil_face": "CENTRAL4-ADAP"
+        },
+        "positivity": {
+            "is_interpolation_limiter": true
+        }
+    },
+    "levelset": {
+        "halo_cells": 2,
+        "model": "FLUID-SOLID",
+        "solid_coupling": {
+            "dynamic": "ONE-WAY"
+        },
+        "interface_flux": {
+            "method": "INTERPOLATION",
+            "interpolation_dh": 0.5,
+            "is_cell_based_computation": false
+        },
+        "geometry": {
+            "derivative_stencil_normal": "CENTRAL2"
+        },
+        "extension": {
+            "primitives": {
+                "method": "ITERATIVE",
+                "iterative": {
+                    "CFL": 0.5,
+                    "steps": 5,
+                    "residual_threshold": 1e-2,
+                    "is_jaxwhileloop": true
+                }
+            }
+        },
+        "mixing": {
+            "conservatives": {
+                "volume_fraction_threshold": 1e-1,
+                "mixing_targets": 2,
+                "is_cell_based_computation": false
+            }
+        }
+    },
+    "active_physics": {
+        "is_convective_flux": true,
+        "is_viscous_flux": true,
+        "is_viscous_heat_production": true
+    },
+    "active_forcings": {
+        "is_temperature_forcing": true
+    },
+    "precision": {
+        "is_double_precision_compute": true,
+        "is_double_precision_output": true
+    },
+    "output": {
+        "derivative_stencil": "CENTRAL4",
+        "logging": {
+            "frequency": 100
+        },
+        "is_xdmf": false
+    }
+}

@@ -1,0 +1,201 @@
+{
+    "general": {
+        "case_name": "Cylinder2DEnv",
+        "end_time": 1000.0,
+        "save_path": "./results",
+        "save_start": 0.0,
+        "save_dt": 10.0,
+        "save_timestamps": []
+    },
+    "restart": {
+        "flag": false,
+        "file_path": ""
+    },
+    "domain": {
+        "x": {
+            "cells": 400,
+            "range": [
+                -100.0,
+                200.0
+            ],
+            "stretching": {
+                "type": "PIECEWISE",
+                "parameters": [
+                    {
+                    "type": "DECREASING",
+                    "lower_bound": -100.0,
+                    "upper_bound": -2.0,
+                    "cells": 75
+                    },
+                    {
+                    "type": "CONSTANT",
+                    "lower_bound": -2.0,
+                    "upper_bound": 4.0,
+                    "cells": 150
+                    },
+                    {
+                    "type": "INCREASING",
+                    "lower_bound": 4.0,
+                    "upper_bound": 200.0,
+                    "cells": 175
+                    }
+                ]
+            }
+        },
+        "y": {
+            "cells": 300,
+            "range": [
+                -100.0,
+                100.0
+            ],
+            "stretching": {
+                "type": "PIECEWISE",
+                "parameters": [
+                    {
+                    "type": "DECREASING",
+                    "lower_bound": -100.0,
+                    "upper_bound": -2.0,
+                    "cells": 100
+                    },
+                    {
+                    "type": "CONSTANT",
+                    "lower_bound": -2.0,
+                    "upper_bound": 2.0,
+                    "cells": 100
+                    },
+                    {
+                    "type": "INCREASING",
+                    "lower_bound": 2.0,
+                    "upper_bound": 100.0,
+                    "cells": 100
+                    }
+                ]
+            }
+        },
+        "z": {
+            "cells": 1,
+            "range": [
+                0.0,
+                1.0
+            ]
+        },
+        "decomposition": {
+            "split_x": 1,
+            "split_y": 1,
+            "split_z": 1
+        }
+    },
+    "boundary_conditions": {
+        "primitives": {
+            "east": {
+                "type": "SIMPLE_OUTFLOW",
+                "primitives_callable": {
+                    "rho": 1.0,
+                    "u": 0.23664319132398464,
+                    "v": 0.0,
+                    "w": 0.0,
+                    "p": 1.0
+                }
+            },
+            "west": {
+                "type": "DIRICHLET",
+                "primitives_callable": {
+                    "rho": 1.0,
+                    "u": 0.23664319132398464,
+                    "v": 0.0,
+                    "w": 0.0,
+                    "p": 1.0
+                }
+            },
+            "north": {
+                "type": "SIMPLE_OUTFLOW",
+                "primitives_callable": {
+                    "rho": 1.0,
+                    "u": 0.23664319132398464,
+                    "v": 0.0,
+                    "w": 0.0,
+                    "p": 1.0
+                }
+            },
+            "south": {
+                "type": "SIMPLE_OUTFLOW",
+                "primitives_callable": {
+                    "rho": 1.0,
+                    "u": 0.23664319132398464,
+                    "v": 0.0,
+                    "w": 0.0,
+                    "p": 1.0
+                }
+            },
+            "top": {"type": "INACTIVE"},
+            "bottom": {"type": "INACTIVE"}
+        },
+        "levelset": {
+            "east": {"type": "ZEROGRADIENT"},
+            "west": {"type": "ZEROGRADIENT"},
+            "north": {"type": "ZEROGRADIENT"},
+            "south": {"type": "ZEROGRADIENT"},
+            "top": {"type": "INACTIVE"},
+            "bottom": {"type": "INACTIVE"}
+        }
+    },
+    "initial_condition": {
+        "primitives": {
+            "rho": 1.0,
+            "u": 0.23664319132398464,
+            "v": 0.0,
+            "w": 0.0,
+            "p": 1.0
+        },
+        "levelset": "lambda x,y: - 0.5 + jnp.sqrt(x**2 + y**2)"
+    },
+    "material_properties": {
+        "equation_of_state": {
+            "model": "IdealGas",
+            "specific_heat_ratio": 1.4,
+            "specific_gas_constant": 1.0
+        },
+        "transport": {
+            "dynamic_viscosity": {
+                "model": "CUSTOM",
+                "value": 0.001183215957
+            },
+            "bulk_viscosity": 0.0,
+            "thermal_conductivity": {
+                "model": "CUSTOM",
+                "value": 0.0
+            }
+        }
+    },
+    "solid_properties": {
+        "velocity": {
+            "u": "lambda x,y,t: jnp.where((x >= -2.0) & (x < 4.0) & (y >= -2.0) & (y < 2.0), -0.5 * y, 0.0)",
+            "v": "lambda x,y,t: jnp.where((x >= -2.0) & (x < 4.0) & (y >= -2.0) & (y < 2.0), +0.5 * x, 0.0)",
+            "w": 0.0
+        }
+    },
+    "forcings": {
+        "temperature": {"target_value": 1.0},
+        "sponge_layer": {
+            "primitives": {
+                "rho": 1.0,
+                "u": 0.23664319132398464,
+                "v": 0.0,
+                "w": 0.0,
+                "p": 1.0
+            },
+            "strength": "lambda x,y,t: 0.0"
+        }
+    },
+    "nondimensionalization_parameters": {
+        "density_reference": 1.0,
+        "length_reference": 1.0,
+        "velocity_reference": 1.0,
+        "temperature_reference": 1.0
+    },
+    "output": {
+        "primitives": ["density", "velocity", "pressure"],
+        "levelset": ["levelset", "volume_fraction"],
+        "miscellaneous": ["vorticity"]
+    }
+}

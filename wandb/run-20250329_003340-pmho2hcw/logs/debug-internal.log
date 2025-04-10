@@ -1,7 +1,0 @@
-{"time":"2025-03-29T00:33:40.602580524-07:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/jay/FNO_RL/wandb/run-20250329_003340-pmho2hcw/logs/debug-core.log"}
-{"time":"2025-03-29T00:33:40.705877404-07:00","level":"INFO","msg":"created new stream","id":"pmho2hcw"}
-{"time":"2025-03-29T00:33:40.705899744-07:00","level":"INFO","msg":"stream: started","id":"pmho2hcw"}
-{"time":"2025-03-29T00:33:40.705919174-07:00","level":"INFO","msg":"writer: Do: started","stream_id":"pmho2hcw"}
-{"time":"2025-03-29T00:33:40.705929874-07:00","level":"INFO","msg":"sender: started","stream_id":"pmho2hcw"}
-{"time":"2025-03-29T00:33:40.705943544-07:00","level":"INFO","msg":"handler: started","stream_id":"pmho2hcw"}
-{"time":"2025-03-29T00:33:41.096902334-07:00","level":"INFO","msg":"Starting system monitor"}
