@@ -5,15 +5,21 @@ import numpy as np
 
 
 class RenderCallback(BaseCallback):
+    def __init__(self):
+        super().__init__()
+        self.render_freq = 500
+        self.step_count = 0
+
     def _on_step(self) -> bool:
-        self.training_env.render()  
+        self.step_count += 1
+        if self.step_count % self.render_freq == 0:
+            self.training_env.render()
         return True  
     
 class LoggingCallback(BaseCallback):
-    def __init__(self, project_name="FNO_JAX_FLUIDS_Cylinder2D", run_name="PPO_Experiment_2"):
+    def __init__(self):
         super().__init__()
-        wandb.init(project=project_name, name=run_name, sync_tensorboard=True)
-
+        
     def _on_step(self) -> bool:
         
         action = self.locals["actions"]

@@ -3,7 +3,7 @@ import torch.functional as F
 import torch.nn as nn
 import torch
 from stable_baselines3.common.policies import ActorCriticPolicy
-
+from neuralop.layers.spectral_convolution import SpectralConv1d
 
 class CustomActorCritic(nn.Module):
     def __init__(self,

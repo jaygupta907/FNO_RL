@@ -8,9 +8,11 @@ metric:
   goal: maximize
 parameters:
   algorithm:
-    values: ['sac','ppo','td3','ddpg']
+    values: ['sac','ppo','td3','ddpg','a2c']
   learning_rate:
-    values: [0.001,0.0001,0.0005]
+    values: [0.0001]
   batch_size:
-    values: [32,64,128]
+    values: [64]
+  policy:
+    values: ['MlpPolicy','CnnPolicy','custom']
   

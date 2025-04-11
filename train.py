@@ -4,7 +4,7 @@ import torch.functional as F
 import torch.nn as nn
 import torch
 import numpy as np
-from stable_baselines3 import PPO,SAC,TD3,DDPG
+from stable_baselines3 import PPO,SAC,TD3,DDPG,A2C
 from stable_baselines3.common.policies import ActorCriticPolicy
 import os
 from stable_baselines3.common.callbacks import CheckpointCallback
@@ -14,10 +14,14 @@ import wandb
 from config import get_args
 from callbacks import RenderCallback, LoggingCallback
 from policy import CustomPolicy
+
+
+os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"]="false"
 args = get_args()
 
 project_name = "JAX_FLUIDS_Cylinder2D"
 run_name = f"{args.algorithm}_{args.learning_rate}_{args.batch_size}"
+render_dir = os.path.join("render", run_name)
 
 save_dir = os.path.join("models", run_name)
 os.makedirs(save_dir, exist_ok=True)
@@ -31,23 +35,53 @@ wandb.init(project=project_name, name=run_name, sync_tensorboard=True)
 
 callback_list = [checkpoint_callback, RenderCallback(),LoggingCallback()]
 
-env = Cylinder2DEnv(render_mode='save',episode_length=100,action_length=0.05)
+env = Cylinder2DEnv(render_mode='save',episode_length=100,action_length=0.05,render_dir=render_dir)
+env.reset()
 
-algorithm = None
+policy = None
+if args.policy == 'custom':
+    policy = CustomPolicy
+else:
+    policy = args.policy
+
+
+model = None
+# Define the algorithm based on user input
 if args.algorithm == 'sac':
-    algorithm = SAC
+    model = SAC(policy=policy,
+                env=env,verbose=1,
+                batch_size=args.batch_size,
+                buffer_size=args.buffer_size,
+                learning_rate=args.learning_rate,
+                device='cuda')
 elif args.algorithm == 'ppo':
-    algorithm = PPO
+    model = PPO(policy=policy,
+                env=env,verbose=1,
+                batch_size=args.batch_size,
+                learning_rate=args.learning_rate,
+                device='cuda')
 elif args.algorithm == 'td3':
-    algorithm = TD3
+    model = TD3(policy=policy,
+                env=env,verbose=1,
+                batch_size=args.batch_size,
+                buffer_size=args.buffer_size,
+                learning_rate=args.learning_rate,
+                device='cuda')
 elif args.algorithm == 'ddpg':
-    algorithm = DDPG
+    model = DDPG(policy=policy,
+                 env=env,verbose=1,
+                 batch_size=args.batch_size,
+                 buffer_size=args.buffer_size,
+                 learning_rate=args.learning_rate,
+                 device='cuda')
+elif args.algorithm == 'a2c':
+    model = A2C(policy=policy,
+                env=env,
+                verbose=1,
+                batch_size=args.batch_size,
+                learning_rate=args.learning_rate,
+                device='cuda')
 else:
     raise ValueError(f"Algorithm {args.algorithm} not supported.")
 
-if args.policy == 'custom':
-    model = algorithm(policy=CustomPolicy,env=env,verbose=1,batch_size=16,learning_rate=0.001,device='cuda')
-
-else:
-    model = algorithm(policy=args.policy,env=env,verbose=1,batch_size=args.batch_size,learning_rate=args.learning_rate,device='cuda')
-model.learn(total_timesteps=100000,callback=callback_list)
+model.learn(total_timesteps=args.training_steps,callback=callback_list)
